@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@using Vendor.Models
+@model VendingOptions
+
+<div>
+
+@using (Html.BeginForm("BuyProduct", "Home", FormMethod.Post))
+    {
+
+    <div class="jumbotron">
+        <h1>Vending Machine</h1>
+        <p class="lead">Select change</p>
+        @foreach (var availableChangeValue in Model.AvailableChange)
+        {
+            <input type="checkbox" name="checkChange" value="@availableChangeValue" />@: $
+            @availableChangeValue <br />
+        }
+    </div>
+
+
+    <div class="row">
+        @{
+            var bootStrapColumnSpan
+                = 12 / Model.Products.Count;
+        }
+
+        @foreach (var p in Model.Products)
+        {
+            <div class="col-md-@bootStrapColumnSpan">
+                <h2>@p.Name</h2>
+                <p>$@p.Price</p>
+                <p>
+                    <input type="submit" name="submit" class="btn btn-default" value="@p.Name"/>
+                </p>
+            </div>
+        }
+    </div>
+}</div>
